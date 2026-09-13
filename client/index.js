@@ -128,7 +128,18 @@ app.put("/api/menu/:id", (req, res) => {
 app.delete("/api/menu/:id", (req, res) => {
     client.remove({ id: req.params.id }, (err, data) => {
         if (err) return res.status(err.code === 5 ? 404 : 500).json({ error: err.details });
-        res.json({ success: true, message: "Menu item deleted successfully" });
+        res.json({
+            success: true,
+            message: "Menu item deleted successfully",
+            deletedId: req.params.id
+        });
+    });
+});
+
+app.delete("/api/menu", (req, res) => {
+    res.status(400).json({
+        success: false,
+        error: "Missing menu ID in URL. Please provide an ID, e.g. /api/menu/<id>"
     });
 });
 

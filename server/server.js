@@ -65,6 +65,12 @@ server.addService(restaurantProto.RestaurantService.service, {
     // 2. Get Single Menu Item by ID
     get: async (call, callback) => {
         try {
+            if (!call.request.id || !mongoose.Types.ObjectId.isValid(call.request.id)) {
+                return callback({
+                    code: grpc.status.NOT_FOUND,
+                    details: "Invalid ID format or Not found"
+                });
+            }
             const menuItem = await Menu.findById(call.request.id);
             if (menuItem) {
                 callback(null, formatMenuItem(menuItem));
@@ -105,6 +111,12 @@ server.addService(restaurantProto.RestaurantService.service, {
     // 4. Update Menu Item by ID
     update: async (call, callback) => {
         try {
+            if (!call.request.id || !mongoose.Types.ObjectId.isValid(call.request.id)) {
+                return callback({
+                    code: grpc.status.NOT_FOUND,
+                    details: "Invalid ID format or Not found"
+                });
+            }
             const updatedItem = await Menu.findByIdAndUpdate(
                 call.request.id,
                 {
@@ -135,6 +147,12 @@ server.addService(restaurantProto.RestaurantService.service, {
     // 5. Remove Menu Item by ID
     remove: async (call, callback) => {
         try {
+            if (!call.request.id || !mongoose.Types.ObjectId.isValid(call.request.id)) {
+                return callback({
+                    code: grpc.status.NOT_FOUND,
+                    details: "Invalid ID format or Not found"
+                });
+            }
             const deletedItem = await Menu.findByIdAndDelete(call.request.id);
             if (deletedItem) {
                 console.log("Menu Item removed successfully from MongoDB:", call.request.id);

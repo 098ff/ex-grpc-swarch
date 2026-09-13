@@ -27,7 +27,13 @@
             "exec": [
               "var res = pm.response.json();",
               "if (res.data && res.data.length > 0) {",
-              "    pm.environment.set(\"menu_id\", res.data[0].id);",
+              "    var currentId = pm.environment.get('menu_id');",
+              "    // Only set default if menu_id is currently empty",
+              "    if (!currentId || currentId.trim() === '') {",
+              "        var latestItem = res.data[res.data.length - 1];",
+              "        pm.environment.set('menu_id', latestItem.id);",
+              "        console.log('menu_id was empty, set to latest item:', latestItem.name, latestItem.id);",
+              "    }",
               "}"
             ],
             "type": "text/javascript"
@@ -47,7 +53,7 @@
             "menu"
           ]
         },
-        "description": "Fetch all menu items. Automatically saves the first item's ID into the environment variable 'menu_id'."
+        "description": "Fetch all menu items. If menu_id is empty, it assigns the latest menu item's ID."
       },
       "response": []
     },
@@ -80,7 +86,8 @@
             "exec": [
               "var res = pm.response.json();",
               "if (res.data && res.data.id) {",
-              "    pm.environment.set(\"menu_id\", res.data.id);",
+              "    pm.environment.set('menu_id', res.data.id);",
+              "    console.log('Created new item, auto-set menu_id to:', res.data.name, res.data.id);",
               "}"
             ],
             "type": "text/javascript"
@@ -109,7 +116,7 @@
             "menu"
           ]
         },
-        "description": "Create a new menu item. Automatically saves the new item's ID into {{menu_id}}."
+        "description": "Create a new menu item. Automatically saves the newly created item's ID into {{menu_id}}."
       },
       "response": []
     },
@@ -144,6 +151,21 @@
     },
     {
       "name": "5. Delete Menu Item",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var res = pm.response.json();",
+              "if (res.success) {",
+              "    pm.environment.set('menu_id', '');",
+              "    console.log('Successfully deleted item. Reset menu_id to empty.');",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
       "request": {
         "method": "DELETE",
         "header": [],
@@ -158,7 +180,7 @@
             "{{menu_id}}"
           ]
         },
-        "description": "Delete the menu item referenced by {{menu_id}} from MongoDB."
+        "description": "Delete the menu item referenced by {{menu_id}} from MongoDB and resets menu_id."
       },
       "response": []
     }
