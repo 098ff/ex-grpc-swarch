@@ -130,16 +130,12 @@ A complete Postman collection is provided in `postman/Restaurant_gRPC_Web.postma
 
 1. Open **Postman**.
 2. Click **Import** and select `postman/Restaurant_gRPC_Web.postman_collection.json`.
-3. The collection contains 9 pre-configured requests:
-   - `1. Web UI - View Menu Page` (GET `http://localhost:3000/`)
-   - `2. REST API - Get All Menu Items` (GET `http://localhost:3000/api/menu`)
-   - `3. REST API - Create New Menu Item` (POST `http://localhost:3000/api/menu`)
-   - `4. REST API - Get Menu Item By ID` (GET `http://localhost:3000/api/menu/:id`)
-   - `5. REST API - Update Menu Item` (PUT `http://localhost:3000/api/menu/:id`)
-   - `6. REST API - Delete Menu Item` (DELETE `http://localhost:3000/api/menu/:id`)
-   - `7. Web Form - Save New Menu Item` (Form POST simulation)
-   - `8. Web Form - Update Menu Item` (Form POST simulation)
-   - `9. Web Form - Remove Menu Item` (Form POST simulation)
+3. The collection contains 5 essential CRUD endpoints:
+   - `1. Get All Menu Items` (GET `{{baseUrl}}/api/menu`)
+   - `2. Get Menu Item By ID` (GET `{{baseUrl}}/api/menu/{{menu_id}}`)
+   - `3. Create Menu Item` (POST `{{baseUrl}}/api/menu`)
+   - `4. Update Menu Item` (PUT `{{baseUrl}}/api/menu/{{menu_id}}`)
+   - `5. Delete Menu Item` (DELETE `{{baseUrl}}/api/menu/{{menu_id}}`)
 
 ---
 

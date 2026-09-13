@@ -117,14 +117,12 @@ npm run seed
 ในโฟลเดอร์ `postman/` มีไฟล์ **`Restaurant_gRPC_Web.postman_collection.json`**:
 1. เปิดโปรแกรม Postman
 2. กดปุ่ม **Import** แล้วเลือกไฟล์ `postman/Restaurant_gRPC_Web.postman_collection.json`
-3. ใน Collection จะมี Request ครบถ้วนทั้ง 9 รายการ:
-   - `1. Web UI - View Menu Page` (GET `http://localhost:3000/`)
-   - `2. REST API - Get All Menu Items` (GET `http://localhost:3000/api/menu`)
-   - `3. REST API - Create New Menu Item` (POST `http://localhost:3000/api/menu`)
-   - `4. REST API - Get Menu Item By ID` (GET `http://localhost:3000/api/menu/:id`)
-   - `5. REST API - Update Menu Item` (PUT `http://localhost:3000/api/menu/:id`)
-   - `6. REST API - Delete Menu Item` (DELETE `http://localhost:3000/api/menu/:id`)
-   - รวมถึงการจำลองส่ง Form Web UI (`/save`, `/update`, `/remove`)
+3. ใน Collection จะมี Request 5 รายการหลักตามมาตรฐาน CRUD:
+   - `1. Get All Menu Items` (GET `{{baseUrl}}/api/menu`)
+   - `2. Get Menu Item By ID` (GET `{{baseUrl}}/api/menu/{{menu_id}}`)
+   - `3. Create Menu Item` (POST `{{baseUrl}}/api/menu`)
+   - `4. Update Menu Item` (PUT `{{baseUrl}}/api/menu/{{menu_id}}`)
+   - `5. Delete Menu Item` (DELETE `{{baseUrl}}/api/menu/{{menu_id}}`)
 
 ---
 
